@@ -1,0 +1,20 @@
+{
+	"records": [
+		{
+			"name": "Sagar",
+			"address": "Uttam Nagar"
+		},
+		{
+			"name": "Kartik",
+			"address": "Delhi"
+		},
+		{
+			"name": "Krishna",
+			"address": "Bangalore"
+		},
+		{
+			"name": "Shyam Sundar",
+			"address": "Vrindavan"
+		}
+	]
+}

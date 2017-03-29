@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="httpserviceModule">
+<head>
+	<title>nghttpservice</title>
+	<meta charset="utf-8">
+	<script src="../../js/angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('httpserviceModule',[]);
+
+			app.controller('httpserviceCtrl',['$scope','$http',function($scope,$http){
+				$scope.msg = "httpserviceDemo";
+				$http.get('http://localhost:8080/demos/nghttpservice/database.json')
+				.then(function(response){
+					$scope.developers = response.records;
+				},function(secondres){
+					$scope.developers = secondres.records;
+
+				});
+			}]);
+	</script>	
+</head>
+<body ng-controller="httpserviceCtrl">
+{{msg}}
+	<div>
+		<ol>
+			<h2>Name and address of the developers nearby you..</h2>
+			<li ng-repeat="dev in developers">{{dev.name+' : '+dev.address}}</li>
+		</ol>
+		
+	</div>
+	
+</body>
+</html>

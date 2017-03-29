@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>try_closure</title>
+</head>
+<body>
+	<pre>
+		var addToo = function(passed){
+			// var inner = 2;
+			var add = function(inner){
+				return passed+inner;
+			}
+			return add;
+		};
+		var three = new addToo(3);		
+		var four = new addToo(4);		
+
+		console.dir(three);
+		console.dir(four);
+	</pre>
+<script type="text/javascript">
+		// var passed = 3;
+		var addToo = function(passed){
+			// var inner = 2;
+			var add = function(inner){
+			 passed+inner;
+			}
+			return add;
+		};
+		var three = new addToo(3);		
+		var four = new addToo(4);		
+
+		console.dir(three);
+		console.dir(four);
+
+	// stupidity below
+		var sub = function(subb){
+			return subb;
+		};
+		var disub = new sub(33);
+		var disub2 = new sub(44);
+		console.log(disub);
+		console.log(sub);
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<div ng-controller="routeAppController">
+	<form action="javascript:void(0);" id="myLogin">
+		<label>UserName: </label>
+		<input type="text" ng-model="fname"><br>
+		<label>Password: </label>
+		<input type="password" ng-model="password"><br>
+		<button type="submit" ng-click="submit()"> Login here</button>
+	</form>	
+</div>

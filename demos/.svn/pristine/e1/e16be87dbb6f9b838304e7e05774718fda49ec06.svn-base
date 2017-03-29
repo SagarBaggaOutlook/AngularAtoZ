@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngrouteModule">
+<head>
+	<meta charset="utf-8">
+	<title>ng-route simple</title>
+	<script src="../../js/angular.min.js"></script>
+	<script src="../../js/angular-route.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script> -->
+</head>
+<body>
+	<div ng-view></div>
+	<script>
+		var app = angular.module('ngrouteModule',['ngRoute']);
+			/*app.controller('ngrouteController',['$scope',function($scope){
+
+			}]);*/
+			app.config(['$routeProvider',function($routeProvider){
+				$routeProvider
+				.when('/',{
+					template: "Welcome friend to a default page! Try run this using.. ajax request are not permitted under file protocol so we need a local host to.."
+				})
+				.when('/brother',{
+					template: 'Welcome brother!'
+				})
+				.when('/sister',{
+					template: 'welcome sister!'
+				})
+				.when('/sagar',{
+					templateUrl: 'sagar.html'
+				})
+				.when('/kartik',{
+					template: 'hello kartik'
+				})
+				.otherwise({
+					redirectTo: '/'
+				})
+			}]);
+			
+	</script>
+</body>
+</html>
