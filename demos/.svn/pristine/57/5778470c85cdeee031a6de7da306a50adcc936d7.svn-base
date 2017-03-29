@@ -8,24 +8,26 @@
 		var app = angular.module('httpserviceModule',[]);
 
 			app.controller('httpserviceCtrl',['$scope','$http',function($scope,$http){
-				$scope.msg = "Topic- HttpService";
-				$http.get('http://localhost:8080/demos/nghttpservice/database.json')				
-				.then(function(success){
-					console.log('db found');
-					$scope.persons = success.data.records;
-				},function(error){
-					alert('no data found');
-				})				
+				$scope.msg = "httpserviceDemo";
+				$http.get('http://localhost:8080/demos/nghttpservice/database.json')
+				.then(function(response){
+					$scope.developers = response.records;
+				},function(secondres){
+					$scope.developers = secondres.records;
+
+				});
 			}]);
 	</script>	
 </head>
 <body ng-controller="httpserviceCtrl">
-{{msg}} 
+{{msg}}
 	<div>
 		<ol>
 			<h2>Name and address of the developers nearby you..</h2>
-			<li ng-repeat="person in persons">{{person.name + ' : ' + person.address}}</li>
-		</ol>		
+			<li ng-repeat="dev in developers">{{dev.name+' : '+dev.address}}</li>
+		</ol>
+		
 	</div>
+	
 </body>
 </html>
