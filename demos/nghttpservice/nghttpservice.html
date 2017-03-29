@@ -22,7 +22,9 @@
 <body ng-controller="httpserviceCtrl">
 	<div style="text-align: center"><em>{{msg}}</em></div> 
 	<div>
-		Search Developers by name or address: <input type="text" ng-model="findDev"> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		Search Developers by name or address: <input type="text" ng-model="findDev.$"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		Search Developers by name only: <input type="text" ng-model="findDev.name"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		Search Developers by address only: <input type="text" ng-model="findDev.address"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
 		<ol>
 			<h2>Name and address of the developers nearby you..</h2>
 			<li ng-repeat="person in persons | filter:findDev">{{person.name + ' : ' + person.address}}</li>
