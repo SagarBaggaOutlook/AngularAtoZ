@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="scopeDataModule">
+<head>
+	<title>nghttpservice</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="scopeDataCtrl">
+	<input type="text" ng-model="fname" placeholder="fname global scope.."> <!-- it will create own scope of fname -->
+	<p ng-repeat = "n in [1]">
+		<input type="text" ng-model="fname" placeholder="fname local scope.."> <!-- it will create own scope of fname -->
+	</p>
+	First name: {{fname}}
+	<br>
+	<input type="text" ng-model="lname.property" placeholder="lname global scope.."><!--  create a property of global lname which is passed down to the sub scope -->
+	<p ng-repeat = "n in [1]">
+		<input type="text" ng-model="lname.property" placeholder="lname global scope.."><pre>	<!-- this will override the property of lname --></pre>
+	</p>
+	Last name: {{lname.property}}
+
+	<script type="text/javascript">
+		var app = angular.module('scopeDataModule',[]);
+			app.controller('scopeDataCtrl',['$scope',function($scope){}]);
+	</script>
+</body>
+</html>
