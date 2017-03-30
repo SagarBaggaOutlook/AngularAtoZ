@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="httpserviceModule">
+<head>
+	<title>nghttpservice</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('httpserviceModule',[]);
+
+			app.controller('httpserviceCtrl',['$scope','$http',function($scope,$http){
+				$scope.msg = "Topic- HttpService";
+				$http.get('http://localhost:8080/demos/nghttpservice/database.json')				
+				.then(function(success){
+					console.log('db found');
+					$scope.persons = success.data.records;
+				},function(error){
+					alert('no data found');
+				})				
+			}]);
+	</script>	
+</head>
+<body ng-controller="httpserviceCtrl">
+	<div style="text-align: center"><em>{{msg}}</em></div> 
+	<div>
+		Search Developers by name or address: <input type="text" ng-model="findDev.$"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		Search Developers by name only: <input type="text" ng-model="findDev.name"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		Search Developers by address only: <input type="text" ng-model="findDev.address"><br> <!-- give model name here and it will bind in ng-repeat as a filter -->
+		<ol>
+			<h2>Name and address of the developers nearby you..</h2>
+			<li ng-repeat="person in persons | filter:findDev">{{person.name + ' : ' + person.address}}</li>
+		</ol>		
+	</div>
+</body>
+</html>

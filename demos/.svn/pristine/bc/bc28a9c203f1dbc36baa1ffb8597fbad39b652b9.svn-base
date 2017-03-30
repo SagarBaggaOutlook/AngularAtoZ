@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="applySimpleModule">
+<head>
+	<title>applySimple</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="applySimpleCtrl">
+	<div>
+		Apply data msg : {{applyPass}}		
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('applySimpleModule',[]);
+			app.controller('applySimpleCtrl',['$scope',function($scope){
+				$scope.getMessage = function(){
+					setTimeout(function(){
+						$scope.applyPass = 'this message will display after 2 second.';
+						console.log("apply data msg: "+ $scope.applyPass);
+					},2000);
+				}
+				$scope.getMessage();
+
+				$scope.getMessageWithApply = function(){
+					setTimeout(function(){
+						$scope.$apply(function(){
+							$scope.applyPass = 'this message will display after 3 second using $APPLY.';
+							console.log("apply data msg using $APPLY: "+ $scope.applyPass);
+						})
+					},2000);
+				}
+				$scope.getMessageWithApply();
+			}]);
+	</script>
+</body>
+</html>

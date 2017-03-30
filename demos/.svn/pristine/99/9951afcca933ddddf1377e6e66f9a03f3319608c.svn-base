@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="watchSimpleModule">
+<head>
+	<title>digestSimple</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="watchSimpleCtrl">
+	<div>
+		{{randomNum}} <br>
+		<button ng-click="generateRandom()"  ng-model="randomBtn">Generate random number</button>
+		
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('watchSimpleModule',[]);
+			app.controller('watchSimpleCtrl',['$scope',function($scope){
+				$scope.randomNum = Math.random();
+				document.querySelector('button').addEventListener('click',function(){
+					$scope.randomNum = Math.random();
+					$scope.$digest();
+				},false);	/*to stop event bubbling set false*/
+			}]);
+	</script>
+</body>
+</html>
