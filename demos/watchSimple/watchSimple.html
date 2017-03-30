@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="watchSimpleModule">
+<head>
+	<title>watchSimple</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="watchSimpleCtrl">
+	<div>
+		<input type="text" ng-model="myData">
+	</div>
+	Textbox edited {{count}} times.
+	<script type="text/javascript">
+		var app = angular.module('watchSimpleModule',[]);
+			app.controller('watchSimpleCtrl',['$scope',function($scope){
+				$scope.count = -1;
+				$scope.$watch('myData',function(newValue,oldValue){
+					$scope.count++;
+					if($scope.count == 69){
+						alert('You hit 69!');
+					}
+				});
+			}]);
+	</script>
+</body>
+</html>
