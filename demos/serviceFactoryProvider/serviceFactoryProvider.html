@@ -1,0 +1,61 @@
+<!-- 
+var service = new Service(injection)	here it is instantiated so everytime we gonna use its reference
+var factory = Factory(injection)	here you can create as many objects 
+more flexible way of initializing the "global" variables
+$.get function behaves just as the factory above, in that its return value is used to initialize the "global" variables.
+
+-->
+
+<!DOCTYPE html>
+<html ng-app="sfpModule">
+<head>
+	<title>serviceFactoryProvider</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="sfpCtrl">
+	<div>
+		Date using provider: <strong>{{greetMessage}} </strong><br>
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('sfpModule',[]);
+			app.service('fromService',function(){
+				this.message = "this is from service!";
+			});
+			app.factory('fromFactory',function(){
+				var factory = {};
+				factory.message = "this is from factory!";
+				return factory;
+			});
+			app.provider('fromProvider',function(){		/*you can use any of the below process*/
+				
+					var msg = "this is from provider!"
+					return{
+						setName: function(name){
+							msg += "-" + name;
+						},
+						$get: function(){
+							return {
+								message: msg
+							}
+						}
+					}
+				/*
+					this.msg = "this is from provider!"				
+					this.$get = function(){
+						return {
+							message: this.msg
+						}
+					}
+				*/
+			});
+			app.config(function(fromProviderProvider){ /*provider gives additional facility to act into provider itself*/
+				fromProviderProvider.setName("SagarBagga@outlook.com");
+			});
+			app.controller('sfpCtrl',['$scope','fromService','fromFactory','fromProvider',function($scope,fromProvider,fromService,fromFactory){
+				$scope.greetMessage = [fromService.message,fromFactory.message,fromProvider.message];
+			}]);
+	</script>
+</body>
+</html>
