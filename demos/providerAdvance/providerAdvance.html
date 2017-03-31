@@ -1,0 +1,70 @@
+<!-- 
+var service = new Service(injection)	here it is instantiated so everytime we gonna use its reference
+var factory = Factory(injection)	here you can create as many objects 
+more flexible way of initializing the "global" variables
+$.get function behaves just as the factory above, in that its return value is used to initialize the "global" variables.
+
+-->
+
+<!DOCTYPE html>
+<html ng-app="watchSimpleModule">
+<head>
+	<title>providerAdvance</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="watchSimpleCtrl">
+	<div>
+		Date using provider: <strong>{{greetMessage}} </strong><br>
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('watchSimpleModule',[]);
+			app.provider('dates',function(){
+				var greet;
+				return {
+					setGreeting: function(value){
+						greet = value;
+					},
+					$get: function(){		/*get function is executed by the injector*/						
+						return {							
+							showDate: function(){
+								var date = new Date();
+									hour = date.getHours();
+									// minute = date.getMinutes();
+									// date = hour +":"+minute;
+								return greet+ " Its "+ hour+" Hrs";
+							},
+							showDateLocal: function(){
+								var date = new Date();
+									hour = date.getHours();
+									// minute = date.getMinutes();
+									// date = hour +":"+minute;
+								return hour;
+							}
+						}
+					}
+				}
+			});
+			app.config(function(datesProvider){	/*datesProvider = dates + Provider coz config always accept providers*/
+				// console.log(datesProvider.setGreeting);
+				var time = datesProvider.$get().showDateLocal();
+				if(time >= 0 && time < 12){
+					datesProvider.setGreeting("Good Morning!");
+				}
+				else if(time >= 12 && time < 16){
+					datesProvider.setGreeting("Good Afternoon!");			
+				}
+				else if(time >= 16 && time <= 19){
+					datesProvider.setGreeting("Good Evening!");			
+				}
+				else{
+					datesProvider.setGreeting("Good Night!");
+				}
+			});
+			app.controller('watchSimpleCtrl',['$scope','dates',function($scope,dates){
+				$scope.greetMessage = dates.showDate();
+			}]);
+	</script>
+</body>
+</html>

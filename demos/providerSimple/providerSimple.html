@@ -1,0 +1,43 @@
+<!-- 
+var service = new Service(injection)	here it is instantiated so everytime we gonna use its reference
+var factory = Factory(injection)	here you can create as many objects 
+more flexible way of initializing the "global" variables
+$.get function behaves just as the factory above, in that its return value is used to initialize the "global" variables.
+
+-->
+
+<!DOCTYPE html>
+<html ng-app="watchSimpleModule">
+<head>
+	<title>providerSimple</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="watchSimpleCtrl">
+	<div>
+		Date using provider: {{providerDate}} <br>
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('watchSimpleModule',[]);
+			app.provider('dates',function(){
+				return {
+					$get: function(){		/*get function is executed by the injector*/
+						return {
+							showDate: function(){
+								var date = new Date();
+									hour = date.getHours();
+									minute = date.getMinutes();
+									date = hour +":"+minute;
+								return date;
+							}
+						}
+					}
+				}
+			});
+			app.controller('watchSimpleCtrl',['$scope','dates',function($scope,dates){
+				$scope.providerDate = dates.showDate();
+			}]);
+	</script>
+</body>
+</html>

@@ -1,13 +1,7 @@
-<!-- 
-var service = new Service(injection)	here it is instantiated so everytime we gonna use its reference
-var factory = Factory(injection)	here you can create as many objects 
-service creates but factory returns 
-
--->
 <!DOCTYPE html>
 <html ng-app="watchSimpleModule">
 <head>
-	<title>serviceSimple</title>
+	<title>factorySimple</title>
 	<meta charset="utf-8">
 	<script src="../js/angular.min.js"></script>		
 </head>
@@ -21,12 +15,14 @@ service creates but factory returns
 	
 	<script type="text/javascript">
 		var app = angular.module('watchSimpleModule',[]);
-			app.service('randoms',function(){
+			app.factory('randoms',function(){
+				var randomFactoryObject = {};
 				var num = Math.ceil(Math.random()*1000);
 				// var num = Math.random();
-				this.generate = function(){
+				randomFactoryObject.generate = function(){
 					return num;
 				}
+				return randomFactoryObject;
 			})
 			app.controller('watchSimpleCtrl',['$scope','randoms',function($scope,randoms){
 				$scope.generateRandom = function(){
