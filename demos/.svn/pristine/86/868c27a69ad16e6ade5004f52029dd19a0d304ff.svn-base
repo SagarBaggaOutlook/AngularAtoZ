@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html ng-app="sfpModule">
+<head>
+	<title>ngshowDirective</title>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="sfpCtrl">
+	<button ng-click="toggle()">Toggle msg</button>
+	<div class="message" ng-show="show=='msg1'">message 1</div>
+	<div class="message" ng-show="show=='msg2'">message 2</div>
+	
+	<script type="text/javascript">
+		var app = angular.module('sfpModule',[]);
+			
+			app.controller('sfpCtrl',['$scope',function($scope){
+				$scope.show = "msg1";
+				$scope.toggle = function(){
+					$scope.show = $scope.show=="msg1" ? "msg2" : "msg1";
+				};
+			}]);
+	</script>
+</body>
+</html>
