@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html ng-app="todoModule">
+<head>
+	<title>todoApp</title>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="todoCtrl">
+	<div class="container text-center">
+		<h1 class="">Add a task</h1>
+		<input type="text" ng-model="taskData" class="taskData" placeholder="enter a task.." ng-init="taskData='Morning Walk'" ng-keyup="searchInput()"> <!-- html value attribute will not work alongwith ng-model -->
+		<ul class="text-left">
+			<li ng-repeat="task in tasks track by $index">
+				<span class="done-{{task.status}}">
+					<input type="checkbox" ng-model=task.status> {{task.task_name}}
+				</span>
+			</li>
+		</ul>
+	</div>	
+	<script type="text/javascript">
+		var app = angular.module('todoModule',[]);			
+			app.controller('todoCtrl',['$scope',function($scope){
+				$scope.tasks = [];
+				$scope.searchInput = function(){
+					// console.log(event.which || event.keyCode);
+					if(event.keyCode == 13 && $scope.taskData != ""){
+						// console.info("you pressed enter");
+						var td = $scope.taskData;
+						$scope.addTask(td);
+					}					
+				};
+				$scope.addTask = function(td){
+					console.log(td + " task added successsfully!");					
+					$scope.tasks.push({'task_name':td,"status":false});
+					console.log($scope.tasks);
+					$scope.taskData = "";
+				};
+			}]);
+	</script>
+	<style type="text/css">
+		.container{
+			background: lightgreen;
+		}
+		.container .taskData{
+			width: 300px;
+			padding: 5px;
+			font-size: 17px;
+		}
+		.container li{
+			list-style: none;
+		}
+		span.done-true{
+			color: green;
+			font-style: italic;
+			text-decoration: line-through;
+		}
+	</style>
+</body>
+</html>
