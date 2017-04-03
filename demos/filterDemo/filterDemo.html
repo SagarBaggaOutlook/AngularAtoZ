@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html ng-app="todoModule">
+<head>
+	<title>filterDemo</title>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="todoCtrl">
+	<div class="container text-left">
+		Number: <input type="text" ng-model="number"><br>
+		BaseNumber: <input type="text" ng-model="baseNumber"><br>
+		Your number {{number}} in base {{baseNumber}} is {{number | base:baseNumber}}
+	</div>	
+	<script type="text/javascript">
+		var app = angular.module('todoModule',[]);
+			app.filter('base',function(){
+				var something = function(input,base){
+					var parsed = parseInt(input,10);
+					var based = parseInt(base,10);
+					if(isNaN(parsed) || isNaN(based)) return input;
+					return parsed.toString(based);
+				}	
+				return something;
+			});
+			app.controller('todoCtrl',['$scope',function($scope){
+
+			}]);
+	</script>
+
+</body>
+</html>
