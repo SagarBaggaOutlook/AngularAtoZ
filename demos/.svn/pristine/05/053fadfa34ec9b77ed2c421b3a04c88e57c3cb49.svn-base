@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html ng-app="todoModule">
+<head>
+	<title>directiveScopeProperties</title>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="todoCtrl"> 
+	<div class="container text-left" style="background: lightgreen">
+		<p>My name is: <strong>{{name}}</strong></p>
+		<p>My age is: <strong>{{age}}</strong></p>
+		<p><input type="button" name="" value="value from html" ng-click="callFunc()"></p>
+		<p>------------------------DIRECTIVE below----------------------</p>
+		<my-first-directive class="mfdclass"  name="{{name}}" age="age" func="callFunc()"></my-first-directive>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('todoModule',[]);
+			app.directive('myFirstDirective',function(){				
+				return {
+					scope: {
+						name: '@',
+						age: '=',			/*@ is text-bind it is working only for name attribute in html code*/
+						func: '&'
+					},
+					restrict: 'EA',
+					template: ['<p>@ value of name in directive is <strong>{{name}}</strong></p>',
+								'<p>New value of name: <input type="text" ng-model="name"></p>',
+								'<p>= value of age in directive is <strong>{{age}}</strong></p>',
+								'<p>New value of age: <input type="text" ng-model="age"></p>',
+								'<p><input type="button" value="value from Directive" ng-click="func()" ></p>'].join('')	/*this model scope is within directive tag*/
+
+				}				
+			});
+			app.controller('todoCtrl',['$scope',function($scope){
+				$scope.name = "Enrique Iglesias";
+				$scope.age = 101;
+				$scope.callFunc = function(){
+					alert($scope.name);
+				}
+			}]);
+	</script>
+</body>
+</html>
