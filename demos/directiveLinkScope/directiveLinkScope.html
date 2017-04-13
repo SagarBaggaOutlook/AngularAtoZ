@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html ng-app="todoModule">
+<head>
+	<title>directiveLink</title>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+	<script src="../js/angular.min.js"></script>		
+</head>
+<body ng-controller="todoCtrl"> 
+	<div class="container text-left">
+		<my-first-directive class="mfdclass" id="mfdid" name="mfdname"></my-first-directive><br>
+		<my-first-directive class="mfdclass" id="mfdid" name="mfdname"></my-first-directive><br>
+		<my-first-directive class="mfdclass" id="mfdid" name="mfdname"></my-first-directive><br>
+	</div>	
+	<script type="text/javascript">
+		var app = angular.module('todoModule',[]);
+			app.directive('myFirstDirective',function(){
+				function lyncFunction($scope, e, a){			/*these three are populated by $compile function*/
+					$scope.name = 'Guest';					
+					$scope.changeName = function(newName){
+						$scope.name = $scope.newName;
+						console.log(newName);
+					}
+					/*e.bind('click',function(){
+						alert(e[0].innerText + ' is clicked!');						
+					})*/
+				}
+				return {
+					template: '<span ng-click="changeName(\'KartikSagar\')">Welcome {{name}}</span>',
+					restrict: 'EA',
+					scope: true,				/*try changing with scope:{}*/
+					link: lyncFunction
+				}				
+			});
+			app.controller('todoCtrl',['$scope',function($scope){
+				$scope.newName = "KartikSagar007@gmail.com";
+			}]);
+	</script>
+
+</body>
+</html>

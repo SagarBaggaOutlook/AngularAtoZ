@@ -2,23 +2,21 @@
 <!DOCTYPE html>
 <html ng-app="todoModule">
 <head>
-	<title>simple Directive</title>
+	<title>directiveFurther</title>
 	<meta charset="utf-8">
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
 	<script src="../js/angular.min.js"></script>		
 </head>
 <body > <!-- ng-controller="todoCtrl" -->
 	<div class="container text-left">
-		a: <div my-first-directive></div><br>
-		e: <my-first-directive></my-first-directive><br>
-		c: <p class="my-first-directive"></p><br>
-		cmnt: <!-- directive:my-first-directive -->
+		<div my-first-directive></div>
 	</div>	
 	<script type="text/javascript">
 		var app = angular.module('todoModule',[]);
 			app.directive('myFirstDirective',function(){
 				return {
-					template : 'Hello world this is my first simple directive'
+					templateUrl: 'template.html',
+					restrict: 'EA'
 				}
 			});
 			/*app.controller('todoCtrl',['$scope',function($scope){
