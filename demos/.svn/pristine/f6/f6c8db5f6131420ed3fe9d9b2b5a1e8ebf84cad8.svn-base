@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngMod">
+<head>
+	<meta charset="utf-8">
+	<title>ngincludeAnother</title>
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">	
+	<script src="../js/angular.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script> -->
+</head>
+<body ng-controller="ngCtrl">
+	<div>
+		<em>This will work on apache local server since AJAX request is not permitted on file domain</em>
+	</div>
+	<section>Select View type to represent data:
+		<select ng-model="employeeView">
+			<option value="employeeTable.html">Table</option>
+			<option value="employeeList.html">List</option>
+		</select>
+		<div ng-include="employeeView"></div>
+	</section>
+
+	<script>
+		var app = angular.module("ngMod",[]);
+			app.controller("ngCtrl",["$scope",function($scope){
+				$scope.employees = [
+					{name: "Smita", gender: "Female", salary: "55000"},
+					{name: "Gourav", gender: "Male", salary: "55000"},
+					{name: "Kartik", gender: "Male", salary: "75000"}
+				];
+				$scope.employeeView = "employeeTable.html";
+			}]);
+	</script>
+</body>
+</html>
