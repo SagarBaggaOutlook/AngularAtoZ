@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html ng-app="todoModule">
+<head>
+	<title>dataTable</title>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+	<!-- <script src="../js/angular.min.js"></script>		 -->
+	<!-- core -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+	<!-- plugins -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+	<!-- plugin for second table -->
+	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script> -->
+</head>
+<body ng-controller="todoCtrl"> <br>
+	<div class="container text-left" >		
+		<div class="row">
+			<div class="col-lg-4">
+			    <div class="input-group">
+			      <span class="input-group-btn">
+			        <button class="btn btn-default" type="button">Lookup User</button>
+			      </span>
+			      <input type="text" class="form-control" placeholder="Search for..." ng-model="findDetail">
+			    </div>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4 text-right">
+				<label>Show 
+					<select>
+						<option value="10">10</option>
+						<option value="8">8</option>
+						<option value="4">4</option>
+					</select> Data
+				</label>
+			</div>
+		</div>			
+		<bharti-data-table></bharti-data-table>
+		<nav aria-label="forPagination">
+		  <ul class="pagination">
+		    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+		    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+		    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+		    
+		  </ul>
+		</nav>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('todoModule',[]);			
+			app.directive('bhartiDataTable',function(){				
+				return {
+					scope: false,					
+					restrict: 'EA',
+					templateUrl: 'table.html',
+					link : function (scope, element, attrs) {
+		               element.on('click', function () {
+		                 console.log("clicked");
+		               });
+		            } 
+				}				
+			});
+			app.controller('todoCtrl',['$scope','$http','$element','$filter','orderByFilter',function($scope,$http,$element,$filter,orderByFilter){
+				$scope.datasort = "name";
+				$scope.userData;
+				$scope.items = $filter('orderBy')($scope.userData, "name");
+				$http.get('https://jsonplaceholder.typicode.com/users')
+					.then(success,error);
+
+				function success(data){
+					swal("Success","Data Found ","success");
+					$scope.userData = data.data;
+				}
+				function error(){
+					swal("Sorry!","Data not Found ","error");
+				}
+				$scope.edit = function(index){
+
+				}
+				$scope.delete = function(index){
+					// alert(index + "deleted");
+					console.log(this);
+					// this.emp = "";
+					this.$parent = "";
+					// console.log($element);
+
+				}
+				$scope.sort = {
+        			field: $scope.vary
+        		}
+				$scope.sortData = function(vary){
+					console.log(vary + " sorted");
+					$scope.vary = vary;
+				}
+				console.log($scope.sort.field);
+				
+			}]);
+	</script>
+	<style type="text/css">		
+		@media screen and (max-width: 767px) and (min-width: 300px) {			
+			.dot{
+				display: none;
+			}
+		}
+		td .glyphicon-trash{
+			color: red;
+		}
+	</style>
+</body>
+</html>
