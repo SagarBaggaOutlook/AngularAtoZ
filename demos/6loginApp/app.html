@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ng1</title>
+  	<meta charset="utf-8">
+  	<script src="../js/angular.min.js"></script>
+  	<script src="../js/angular-route.min.js"></script>
+  	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+</head>
+<body ng-app="mod" class="container" >
+	<div ng-view></div>	
+
+	<script >
+		var app = angular.module('mod',['ngRoute']);
+		// app.run.$inject = ['$rootScope'];
+		app.config(function($routeProvider){
+			$routeProvider
+			.when('/',{
+				templateUrl: 'login.html'
+			})
+			.when('/dashboard',{
+				resolve: {
+					"check": function($location,$rootScope){
+						if(!$rootScope.loggedIn){
+							$location.path('/');
+						}						
+					}
+				},
+				templateUrl: 'dashboard.html'
+			})
+			.otherwise({
+				redirectTo: '/'
+			});			
+		});
+		app.controller('ctrl',['$scope','$location','$rootScope',function($scope, $location,$rootScope){
+			$scope.submit = function(){				
+				if(($scope.username == "sagar") && ($scope.password == "sagar")){
+					$rootScope.loggedIn = 'true';
+					// window.location.hash = '#!/dashboard';
+					$location.path('/dashboard');
+				}
+				else{
+					alert("invalid user");
+				}
+			};
+		}]);
+	</script>
+</body>
+</html>
